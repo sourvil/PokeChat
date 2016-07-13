@@ -1,0 +1,9 @@
+{
+  "name": "poke-chat",
+  "version": "0.0.0",
+  "description": "PokeChat",
+  "main": "server.js",
+  "author": {
+    "name": "Burak"
+  }
+}
