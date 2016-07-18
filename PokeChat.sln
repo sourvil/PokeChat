@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "PokeChat", "PokeChat\PokeChat.njsproj", "{2DF47045-EFD3-4BF4-A321-904DFBD0B8D2}"
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "PokeChat", "PokeChat\PokeChat.njsproj", "{7606C711-4511-4C50-9192-3E7311D4E250}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2DF47045-EFD3-4BF4-A321-904DFBD0B8D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2DF47045-EFD3-4BF4-A321-904DFBD0B8D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2DF47045-EFD3-4BF4-A321-904DFBD0B8D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2DF47045-EFD3-4BF4-A321-904DFBD0B8D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7606C711-4511-4C50-9192-3E7311D4E250}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7606C711-4511-4C50-9192-3E7311D4E250}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7606C711-4511-4C50-9192-3E7311D4E250}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7606C711-4511-4C50-9192-3E7311D4E250}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
