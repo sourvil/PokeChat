@@ -33,6 +33,8 @@
   <ItemGroup>
     <Compile Include="app.js" />
     <Compile Include="public\javascripts\appPokeChat.js" />
+    <Compile Include="routes\auth.js" />
+    <Compile Include="routes\chat.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="routes\users.js" />
     <Content Include="package.json" />
