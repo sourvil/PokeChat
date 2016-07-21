@@ -1,6 +1,19 @@
 ﻿var express = require('express');
 var router = express.Router();
 
+function isAuthenticated(req, res, next) {
+    if (req.method == 'GET')
+        return next();
+
+    if (req.isAuthenticated())
+        return next();
+
+    return res.redirect('/#login');
+}
+
+router.use('/', isAuthenticated);
+
+
 router.route('/')
     .post(function (req, res) {
         res.send({ message: 'TODO: a new chat in mongo' });

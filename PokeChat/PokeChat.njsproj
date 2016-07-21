@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="passport-init.js" />
     <Compile Include="public\javascripts\appPokeChat.js" />
     <Compile Include="routes\auth.js" />
     <Compile Include="routes\chat.js" />
