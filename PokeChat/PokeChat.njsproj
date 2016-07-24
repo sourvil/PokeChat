@@ -12,8 +12,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>7606c711-4511-4c50-9192-3e7311d4e250</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>
-    </StartupFile>
+    <StartupFile>app.js</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -32,8 +31,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="models\models.js" />
     <Compile Include="passport-init.js" />
-    <Compile Include="public\javascripts\appPokeChat.js" />
+    <Content Include="public\javascripts\appPokeChat.js" />
     <Compile Include="routes\auth.js" />
     <Compile Include="routes\chat.js" />
     <Compile Include="routes\index.js" />
@@ -609,6 +609,7 @@
     <Content Include="views\layout.jade" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="models\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />
     <Folder Include="public\images\PokemonIcon\" />

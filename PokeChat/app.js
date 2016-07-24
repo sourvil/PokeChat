@@ -8,10 +8,23 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
 
+//initialize mongoose schemas
+require('./models/models');
+
+
 //var routes = require('./routes/index');
 //var users = require('./routes/users');
 var chat = require('./routes/chat');
 var auth = require('./routes/auth')(passport);
+
+var mongoose = require('mongoose');
+//mongoose.connect('mongodb://localhost:27017/pokechat');     //control
+var mongoURI = "mongodb://localhost:27017/pokechat";
+var MongoDB = mongoose.connect(mongoURI).connection;
+    MongoDB.on('error', function (err) { console.log(err.message); });
+    MongoDB.once('open', function () { console.log("mongodb connection open");
+});
+
 
 var app = express();
 
@@ -25,10 +38,34 @@ app.use(logger('dev'));
 app.use(session({ secret: 'nehir' }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// Add headers
+app.use(function (req, res, next) {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost/PokeChat');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 // Initialize Passport
 var initPassport = require('./passport-init');

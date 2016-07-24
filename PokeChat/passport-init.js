@@ -1,36 +1,55 @@
-﻿var localStrategy = require('passport-local').Strategy;
+﻿var mongoose = require('mongoose');
+var User = mongoose.model('User');
+
+var localStrategy = require('passport-local').Strategy;
 var bCrypt = require('bcrypt-nodejs');
-//temporary data store
-var users = {};
+
 
 module.exports = function (passport) {
 
     // Passport needs to be able to serialize and deserialize users to support persistent login sessions
     passport.serializeUser(function (user, done) {
         console.log('serializing user:', user.username);
-        return done(null, user.username);
+        return done(null, user._id);
     });
 
-    passport.deserializeUser(function (username, done) {
+    passport.deserializeUser(function (id, done) {
+        console.log('start of deserialize: ' + id);
 
-        return done(null, users[username]);
-
+        User.findById(id, function (err, user) {
+            console.log('deserializing user:', user.username);
+            return done(err, user);
+        });
     });
+
+
 
     passport.use('login', new localStrategy({
         passReqToCallback: true
     },
         function (req, username, password, done) {
+            console.log('start of login: ' + username + ' and password:' + password);
 
-            if (!users[username]) {
-                console.log(username + ' is wrong username!');
-            }
+            User.findOne({ 'username': username },
+                function (err, user) {
+                    if (err) {
+                        console.log('login error: ' + err);
+                        return done(err);
+                    }
 
-            if (!isValidPassword(password, users[username].password)) {
-                console.log('Wrong password');
-            }
+                    if (!user) {
+                        console.log('login user not found!');
+                        return done(null, false);
+                    }
+                    if (!isValidPassword(user, password)){
+                        console.log('login not valid password');
+                        return done(null, false);
+                    }
 
-            return done(null, users[username]);
+                    //console.log('login is successfull. Username: ' + user.username + '. Password: ' + user.password + '. ID:' + user._id);
+                    return done(null, user);
+                }
+            );
         }
     ));
 
@@ -38,19 +57,35 @@ module.exports = function (passport) {
         passReqToCallback: true // allows us to pass back the entire request to the callback
     },
         function (req, username, password, done) {
+            User.findOne({ 'username': username },
+                function (err, user) {
+                    if (err) {
+                        console.log('signup error: ' + err);
+                        return done(err);
+                    }
+                    if (user) {
+                        console.log('signup user already exists! : ' + username);
+                        return done(null, false);
+                    }
+                    else {
+                        var newUser = new User();
+                        newUser.username = username;
+                        newUser.password = createHash(password);
 
-            if (users[username]) {
-                console.log(username + ' already exists!');
-            }
+                        newUser.save(function (err) {
+                            if (err) {
+                                console.log('signup user not saved! Error: ' + err);
+                                throw err;
+                            }
 
-            stores[username] = {
-                username: username,
-                password: createHash(password)
-            };
+                            console.log(newUser.username + ' user is signed up!');
+                            return done(null, newUser);
+                        });
 
-            console.log(username + 'is signed up');
-            return done(null, users[username]);
+                    }
+                }
 
+            );
         })
     );
 
