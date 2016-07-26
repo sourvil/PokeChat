@@ -114,7 +114,6 @@ http.listen(3000);
 
 var usernames = [];
 var socketUserArray = [];
-//http://stackoverflow.com/questions/8467784/sending-a-message-to-a-client-via-its-socket-id
 
 io.on('connection', function (socket) {
 

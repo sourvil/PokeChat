@@ -594,7 +594,6 @@
     <Content Include="public\images\PokemonIcon\493 Arceus Steel.ico" />
     <Content Include="public\images\PokemonIcon\493 Arceus Water.ico" />
     <Content Include="public\main.html" />
-    <Content Include="public\pokemon.html" />
     <Content Include="public\tip.html" />
     <Content Include="public\chat.html" />
     <Content Include="public\images\Pokeball.png" />
