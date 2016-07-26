@@ -1,0 +1,2 @@
+C:\Users\Burak\documents\visual studio 2015\Projects\PokeChat\PokeChat\obj\Debug\PokeChat.njsprojResolveAssemblyReference.cache
+C:\Users\Burak\documents\visual studio 2015\Projects\PokeChat\PokeChat\bin\Microsoft.NodejsTools.WebRole.dll
