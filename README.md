@@ -18,3 +18,4 @@ For other technical details, please review package.json and other resources.
 For any questions, contact with me @burakdonbay
 
 
+Best!
