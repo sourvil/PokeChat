@@ -121,9 +121,9 @@ io.on('connection', function (socket) {
     console.log('server:connect: ' + socket.id);
     var username;
 
-    socket.on('disconnect', function () {
-        console.log('server:disconnect:' + socket.id);
-        removeFromArray(socketUserArray, socket.id, usernames);        
+    socket.on('disconnect', function () {        
+        var disconnectedUsername = removeFromArray(socket.id);        
+        console.log('server:disconnect:' + disconnectedUsername);
     });
 
     socket.on('login', function (data) {
@@ -137,35 +137,37 @@ io.on('connection', function (socket) {
 
             var socketUser = { 'socketId': socket.id, 'username': username };
             socketUserArray.push(socketUser);
-            //console.log('server:socketUserArray: ' + socketUserArray.length);
         }
         io.sockets.emit('login', data);
     });
 
     socket.on('usernamesFromServer', function (data) {
-        console.log('server:usernames: ' + usernames + " from: " + socket.id);
+        //console.log('server:usernames: ' + usernames + " from: " + socket.id);
         io.sockets.emit('usernamesToClient', usernames);
     });
 
     socket.on('messageToServer', function (data) {
-        console.log('server:message: ' + data.message + ' from: ' + data.createdBy + ' at: ' + data.createdAt);
+        //console.log('server:message: ' + data.message + ' from: ' + data.createdBy + ' at: ' + data.createdAt);
         io.sockets.emit('messageToClient', data);
     });
 
 });
 
-function removeFromArray(array, value, array2) {
-    for (var i = 0; i < array.length;i++)
+function removeFromArray(value) {
+    var disconnectedUsername = "";
+    for (var i = 0; i < socketUserArray.length; i++)
     {
-        if (array[i].socketId == value) {
-            array.splice(i, 1);
-            //for (var j = 0; j < array.length; j++) {
-            //    if (array2[j] == array[i].username)
-            //        array2.splice(j, 1);
-            //}
+        if (socketUserArray[i].socketId == value) {            
+            for (var j = 0; j < usernames.length; j++) {
+                if (usernames[j] == socketUserArray[i].username)
+                    usernames.splice(j, 1);
+            }
+            disconnectedUsername = socketUserArray[i].username;
+            socketUserArray.splice(i, 1);
+            break;
         }
     }
-    return array;
+    return disconnectedUsername;
 }
 
 module.exports = app;

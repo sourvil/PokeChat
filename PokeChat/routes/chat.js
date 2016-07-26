@@ -40,7 +40,7 @@ router.route('/')
             if (err)
                 return res.send(500, err);
             Chat.populate(chats, { path: 'createdBy' }, function (err, chats) {
-                console.log('all chat createdBy fields are loaded: ' + chats.length);
+                //console.log('all chat createdBy fields are loaded: ' + chats.length);
                 return res.send(chats);
             });
         });
