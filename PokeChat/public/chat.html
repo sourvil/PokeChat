@@ -1,9 +1,35 @@
-﻿<form ng-submit="chat()">
+﻿<form>
     <div class="container">
         <div class="row">
-            <div class="col-md-3">Günün İpucu</div>
-            <div class="col-md-6">Feed and Chat</div>
-            <div class="col-md-3">Friend List</div>
+            <div class="col-md-10">
+                <h3>Feed and Chat</h3>
+                <p class="text-warning">{{errorMessage}}</p>
+                <div class="form-group" ng-show="authenticated">
+                    <textarea class="form-control" rows="3" placeholder="Write your Poke message..." ng-model="newPoke.message"></textarea>
+                </div>
+                <div class="form-group" ng-show="authenticated">
+                    <input type="submit" value="Poke-le" class="btn btn-primary" ng-click="poke()" />
+                </div>
+
+                <div class="form-group panel panel-info" ng-repeat="poke in pokes| orderBy:'createdAt':true">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <b>{{poke.createdBy.username}}</b> says at {{poke.createdAt | date:"h:mma 'on' MMM d, y"}}
+                        </h3>
+                    </div>
+                    <div class="panel-body" title="{{poke.id}}">
+                        {{poke.message}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Current Active Users</div>
+                    <ul class="list-group" ng-repeat="activeUser in activeUsers">
+                        <li class="list-group-item">{{activeUser}}</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </form>

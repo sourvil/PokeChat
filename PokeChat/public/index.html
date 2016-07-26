@@ -8,12 +8,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.js"></script>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css">
 
     <link rel="stylesheet" href="stylesheets/style.css">
     <link rel="stylesheet" href="stylesheets/timeline.css">
 </head>
-<body ng-controller="ctrlPoke">
+<body ng-controller="ctrlAuth">
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -27,7 +27,7 @@
                     <img src="images/Pokeball.png" height="32" width="32" />
                 </a>
             </div>
-            <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+            <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="#/chat">Chat</a></li>
                     <li><a href="#/tip">İpuçları</a></li>
@@ -41,7 +41,10 @@
                         <a href="#/login">Giriş</a>
                     </li>
                     <li ng-show="authenticated">
-                        <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">{{currentUser}}</a></p>
+                        <p class="navbar-text navbar-right">
+                            Signed in as <a href="#" class="navbar-link">{{currentUser}}</a>
+                            <a></a>
+                        </p>
                     </li>
                 </ul>
             </div><!--/.nav-collapse -->
@@ -50,25 +53,11 @@
     <div class="view-animate-container">
         <div ng-view class="view-animate"></div>
     </div>
-    <div class="container" ng-show="authenticated">
-        <p class="text-warning">{{errorMessage}}</p>
-        <div class="form-group">
-            <input type="text" ng-model="newPoke.message" class="form-control" placeholder="Write your Poke message..." />
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Poke-le" class="btn btn-primary" ng-click="poke()" />
-        </div>
-        <div class="form-group">
-            <ul>
-                <li ng-repeat="poke in pokes| orderBy:'createdAt':true" ng-class-odd="'odd'" ng-class-even="'even'">
-                    {{poke.message}} at {{poke.createdAt | date:"h:mma 'on' MMM d, y"}} by {{poke.createdBy.username}}
-                </li>
-            </ul>
-        </div>
-    </div>
+    
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.js"></script>
     <script src="javascripts/appPokeChat.js"></script>
 </body>
 </html>

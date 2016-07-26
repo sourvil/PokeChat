@@ -9,15 +9,15 @@ module.exports = function (passport) {
 
     // Passport needs to be able to serialize and deserialize users to support persistent login sessions
     passport.serializeUser(function (user, done) {
-        console.log('serializing user:', user.username);
+        //console.log('serializing user:', user.username);
         return done(null, user._id);
     });
 
     passport.deserializeUser(function (id, done) {
-        console.log('start of deserialize: ' + id);
+        //console.log('start of deserialize: ' + id);
 
         User.findById(id, function (err, user) {
-            console.log('deserializing user:', user.username);
+            //console.log('deserializing user:', user.username);
             return done(err, user);
         });
     });
@@ -28,7 +28,6 @@ module.exports = function (passport) {
         passReqToCallback: true
     },
         function (req, username, password, done) {
-            console.log('start of login: ' + username + ' and password:' + password);
 
             User.findOne({ 'username': username },
                 function (err, user) {

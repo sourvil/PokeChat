@@ -1,8 +1,12 @@
 ﻿var app = angular.module('appPokeChat', ['ngRoute', 'ngResource'])
     .run(function ($rootScope) {
+        //var socketItem;
+
         $rootScope.authenticated = false;
         $rootScope.currentUser = '---Misafir---';
         $rootScope.currentUserId = '';
+
+        $rootScope.activeUsers = [];
 
         $rootScope.signout = function () {
             $http.get('auth/signout');
@@ -10,14 +14,13 @@
             $rootScope.currentUser = '---Misafir---';
             $rootScope.currentUserId = '';
         };
-
     });
 
 app.config(function ($routeProvider) {
     $routeProvider
         .when('/', {
             templateUrl: 'main.html',
-            controller: 'ctrlPoke'
+            controller: 'ctrlAuth'
         })
         .when('/login', {
             templateUrl: 'login.html',
@@ -27,61 +30,67 @@ app.config(function ($routeProvider) {
             templateUrl: 'signup.html',
             controller: 'ctrlAuth'
         })
-        .when('/tip', {
-            templateUrl: 'tip.html',
-            controller: 'ctrlPoke'
-        })
         .when('/chat', {
             templateUrl: 'chat.html',
             controller: 'ctrlPoke'
         })
-        .when('/pokemon', {
-            templateUrl: 'pokemon.html',
+        .when('/tip', {
+            templateUrl: 'tip.html',
             controller: 'ctrlPoke'
         })
         ;
-
 });
 
+app.controller('ctrlPoke', function ($scope, chatService, $rootScope, socket) {
+    
+    $rootScope.pokes = chatService.query();
 
-app.controller('ctrlPoke', function ($scope, chatService, $rootScope) {
-    //$scope.authenticated = false;
-    //$scope.username = '';
-
-    $scope.pokes = chatService.query();
-    console.log('pokes are received - 1');
-    //$scope.newPoke = { createdBy: '', createdAt: '', message: '' };
-
-    //chatService.getAll().success(function (data) {
-    //    $scope.pokes = data;
-    //});
     $scope.poke = function () {
         $scope.newPoke.createdAt = Date.now();
         $scope.newPoke.createdBy = $rootScope.currentUserId;
-        //console.log('Poke Message: ' + $scope.newPoke.message);
 
         chatService.save($scope.newPoke, function () {
             console.log('poke is saved');
-            $scope.pokes = chatService.query();
-            console.log('pokes are received - 2');
-            $scope.newPoke = { createdBy: '', createdAt: '', message: '' };
-        });
-        
+            $rootScope.pokes = chatService.query();
+
+            socket.emit('messageToServer', $scope.newPoke);
+
+            $scope.newPoke = { createdBy: '', createdAt: '', message: '' };            
+        });        
     };
+
+    socket.on('messageToClient', function (data) {
+        console.log('client:message: ' + data.message + ' from: ' + data.createdBy + ' at: ' + data.createdAt);
+        $rootScope.pokes = chatService.query();
+        console.log('$rootScope.pokes is loaded: ' + $rootScope.pokes);
+    });
+
+    socket.on('usernamesToClient', function (data) {
+        console.log("client:usernames: " + JSON.stringify(data));
+        $rootScope.activeUsers = data;
+    });
+    socket.emit('usernamesFromServer', '');
 });
 
-app.controller('ctrlAuth', function ($scope, $http, $rootScope, $location) {
+app.controller('ctrlAuth', function ($scope, $http, $rootScope, $location, socket) {
+
     $scope.user = { username: '', password: '' };
     $scope.errorMessage = '';
 
-    $scope.signup = function () {
+    socket.on("login", function (data) {
+        console.log("client:login: " + JSON.stringify(data));
+    });
 
+    socket.emit('usernamesFromServer', '');
+
+    $scope.signup = function () {
         $http.post('/auth/signup', $scope.user).success(function (data) {
             console.log(data);
             if (data.state == 'success') {
                 $rootScope.authenticated = true;
                 $rootScope.currentUser = data.user.username;
-                $rootScope.currentUserId = data.user.id;
+                $rootScope.currentUserId = data.user.id;                
+
                 $location.path('/');
             }
             else {
@@ -93,14 +102,18 @@ app.controller('ctrlAuth', function ($scope, $http, $rootScope, $location) {
     $scope.login = function () {
         $http.post('/auth/login', $scope.user).success(function (data) {
             if (data.state == 'success') {
-                console.log(data.user.username + 'user is logged in. ID: ' + data.user._id);
+                console.log(data.user.username + ' is logged in. ID: ' + data.user._id);
+
                 $rootScope.authenticated = true;
                 $rootScope.currentUser = data.user.username;
                 $rootScope.currentUserId = data.user._id;
+                
+                socket.emit('login', $rootScope.currentUser);
+
                 $location.path('/');
             }
             else {
-                console.log(data.user.username + 'cannot login');
+                console.log($scope.user.username + ' cannot login');
                 $scope.errorMessage = data.message;
             }
         });
@@ -108,5 +121,37 @@ app.controller('ctrlAuth', function ($scope, $http, $rootScope, $location) {
 });
 
 app.factory('chatService', function ($resource) {
-    return $resource('/chat/:id');
+    return $resource('/chat');
 });
+
+app.factory('socket', ['$rootScope', function ($rootScope) {
+    var socket = io.connect('http://localhost:3000', { reconnect: true });
+
+    return {
+        on: function (eventName, callback) {
+            function wrapper() {
+                var args = arguments;
+                $rootScope.$apply(function () {
+                    callback.apply(socket, args);
+                });
+            }
+
+            socket.on(eventName, wrapper);
+
+            return function () {
+                socket.removeListener(eventName, wrapper);
+            };
+        },
+
+        emit: function (eventName, data, callback) {
+            socket.emit(eventName, data, function () {
+                var args = arguments;
+                $rootScope.$apply(function () {
+                    if (callback) {
+                        callback.apply(socket, args);
+                    }
+                });
+            });
+        }
+    };
+}]);

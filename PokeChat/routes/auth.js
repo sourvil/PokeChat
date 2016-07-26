@@ -1,14 +1,21 @@
 ﻿var express = require('express');
 var router = express.Router();
 
-module.exports = function (passport)
-{
+var io = require('socket.io-client');
+var usernames = [];
+
+
+module.exports = function (passport) {
     router.get('/success', function (req, res) {
-        res.send({state: 'success', user: req.user ? req.user : null});
+        //var socket = io.connect('http://localhost:3000', { reconnect: true });
+        //var data = req.user.username;
+        //socket.emit('login', data);
+
+        res.send({ state: 'success', user: req.user ? req.user : null });
     });
 
     router.get('/failure', function (req, res) {
-        res.send({state: 'failure', user: null, message: 'Invalid username or password'});
+        res.send({ state: 'failure', user: null, message: 'Invalid username or password' });
     });
 
     router.post('/login', passport.authenticate('login', {

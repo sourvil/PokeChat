@@ -21,8 +21,9 @@ var mongoose = require('mongoose');
 //mongoose.connect('mongodb://localhost:27017/pokechat');     //control
 var mongoURI = "mongodb://localhost:27017/pokechat";
 var MongoDB = mongoose.connect(mongoURI).connection;
-    MongoDB.on('error', function (err) { console.log(err.message); });
-    MongoDB.once('open', function () { console.log("mongodb connection open");
+MongoDB.on('error', function (err) { console.log(err.message); });
+MongoDB.once('open', function () {
+    console.log("mongodb connection open");
 });
 
 
@@ -39,27 +40,25 @@ app.use(session({ secret: 'nehir' }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Add headers
-app.use(function (req, res, next) {
+//// Add headers
+//app.use(function (req, res, next) {
 
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost/PokeChat');
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+//    // Website you wish to allow to connect
+//    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
 
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//    // Request methods you wish to allow
+//    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+//    // Request headers you wish to allow
+//    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
+//    // Set to true if you need the website to include cookies in the requests sent
+//    // to the API (e.g. in case you use sessions)
+//    res.setHeader('Access-Control-Allow-Credentials', true);
 
-    // Pass to next layer of middleware
-    next();
-});
+//    // Pass to next layer of middleware
+//    next();
+//});
 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -78,10 +77,10 @@ app.use('/chat', chat);
 app.use('/auth', auth);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+app.use(function (req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handlers
@@ -89,24 +88,84 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
+    app.use(function (err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
     });
-  });
 }
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+app.use(function (err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
 });
 
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+http.listen(3000);
+
+var usernames = [];
+var socketUserArray = [];
+//http://stackoverflow.com/questions/8467784/sending-a-message-to-a-client-via-its-socket-id
+
+io.on('connection', function (socket) {
+
+    console.log('server:connect: ' + socket.id);
+    var username;
+
+    socket.on('disconnect', function () {
+        console.log('server:disconnect:' + socket.id);
+        removeFromArray(socketUserArray, socket.id, usernames);        
+    });
+
+    socket.on('login', function (data) {
+        console.log("server:login: " + data + ' socket.id: ' + socket.id);
+
+        username = data;
+
+        if (usernames.indexOf(data) < 0) {
+            usernames.push(data);
+            io.sockets.emit('usernamesToClient', usernames);
+
+            var socketUser = { 'socketId': socket.id, 'username': username };
+            socketUserArray.push(socketUser);
+            //console.log('server:socketUserArray: ' + socketUserArray.length);
+        }
+        io.sockets.emit('login', data);
+    });
+
+    socket.on('usernamesFromServer', function (data) {
+        console.log('server:usernames: ' + usernames + " from: " + socket.id);
+        io.sockets.emit('usernamesToClient', usernames);
+    });
+
+    socket.on('messageToServer', function (data) {
+        console.log('server:message: ' + data.message + ' from: ' + data.createdBy + ' at: ' + data.createdAt);
+        io.sockets.emit('messageToClient', data);
+    });
+
+});
+
+function removeFromArray(array, value, array2) {
+    for (var i = 0; i < array.length;i++)
+    {
+        if (array[i].socketId == value) {
+            array.splice(i, 1);
+            //for (var j = 0; j < array.length; j++) {
+            //    if (array2[j] == array[i].username)
+            //        array2.splice(j, 1);
+            //}
+        }
+    }
+    return array;
+}
 
 module.exports = app;

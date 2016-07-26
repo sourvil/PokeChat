@@ -33,7 +33,7 @@
     <Compile Include="app.js" />
     <Compile Include="models\models.js" />
     <Compile Include="passport-init.js" />
-    <Content Include="public\javascripts\appPokeChat.js" />
+    <Compile Include="public\javascripts\appPokeChat.js" />
     <Compile Include="routes\auth.js" />
     <Compile Include="routes\chat.js" />
     <Compile Include="routes\index.js" />
@@ -593,13 +593,13 @@
     <Content Include="public\images\PokemonIcon\493 Arceus Rock.ico" />
     <Content Include="public\images\PokemonIcon\493 Arceus Steel.ico" />
     <Content Include="public\images\PokemonIcon\493 Arceus Water.ico" />
+    <Content Include="public\main.html" />
     <Content Include="public\pokemon.html" />
     <Content Include="public\tip.html" />
     <Content Include="public\chat.html" />
     <Content Include="public\images\Pokeball.png" />
     <Content Include="public\index.html" />
     <Content Include="public\login.html" />
-    <Content Include="public\main.html" />
     <Content Include="public\signup.html" />
     <Content Include="public\stylesheets\style.css" />
     <Content Include="public\stylesheets\timeline.css" />
