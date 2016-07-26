@@ -89,7 +89,7 @@ app.controller('ctrlAuth', function ($scope, $http, $rootScope, $location, socke
             if (data.state == 'success') {
                 $rootScope.authenticated = true;
                 $rootScope.currentUser = data.user.username;
-                $rootScope.currentUserId = data.user.id;                
+                $rootScope.currentUserId = data.user.id; 
 
                 $location.path('/');
             }
@@ -108,7 +108,7 @@ app.controller('ctrlAuth', function ($scope, $http, $rootScope, $location, socke
                 $rootScope.currentUser = data.user.username;
                 $rootScope.currentUserId = data.user._id;
                 
-                socket.emit('login', $rootScope.currentUser);
+                //socket.emit('login', $rootScope.currentUser);
 
                 $location.path('/');
             }

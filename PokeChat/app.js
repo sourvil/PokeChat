@@ -118,7 +118,7 @@ var socketUserArray = [];
 
 io.on('connection', function (socket) {
 
-    console.log('server:connect: ' + socket.id);
+    //console.log('server:connect: ' + socket.id);
     var username;
 
     socket.on('disconnect', function () {        

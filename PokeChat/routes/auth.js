@@ -7,9 +7,11 @@ var usernames = [];
 
 module.exports = function (passport) {
     router.get('/success', function (req, res) {
-        //var socket = io.connect('http://localhost:3000', { reconnect: true });
-        //var data = req.user.username;
-        //socket.emit('login', data);
+
+        // better to store here, in middleware rather than client page.
+        var socket = io.connect('http://localhost:3000', { reconnect: true });
+        var data = req.user.username;
+        socket.emit('login', data);
 
         res.send({ state: 'success', user: req.user ? req.user : null });
     });
