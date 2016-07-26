@@ -34,10 +34,6 @@ app.config(function ($routeProvider) {
             templateUrl: 'chat.html',
             controller: 'ctrlPoke'
         })
-        .when('/tip', {
-            templateUrl: 'tip.html',
-            controller: 'ctrlPoke'
-        })
         ;
 });
 

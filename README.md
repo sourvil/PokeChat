@@ -12,6 +12,8 @@ Back-end    : NodeJS 6.2
 
 Database    : MongoDB 3.2
 
+by Visual Studio Code 1.3.1
+
 
 For other technical details, please review package.json and other resources.
 
