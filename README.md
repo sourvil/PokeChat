@@ -6,7 +6,7 @@ Simple Chat channel for Poke-Go lovers!
 
 [![Coverage Status](https://coveralls.io/repos/github/sourvil/PokeChat/badge.svg?branch=master)](https://coveralls.io/github/sourvil/PokeChat?branch=master)
 
-[![Known Vulnerabilities](https://snyk.io/test/npm/pokechat/badge.svg)](https://snyk.io/test/npm/pokechat)
+[![Known Vulnerabilities](https://snyk.io/test/github/sourvil/pokechat/badge.svg)](https://snyk.io/test/github/sourvil/pokechat)
 
 Front-end   : AngularJS 1.5
 
