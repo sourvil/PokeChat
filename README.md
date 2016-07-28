@@ -25,3 +25,5 @@ For any questions, contact with me @burakdonbay
 
 
 Best!
+
+<img src="https://snyk.io/test/npm/pokechat/badge.svg" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/npm/pokechat" style="max-width:100%;"/>
