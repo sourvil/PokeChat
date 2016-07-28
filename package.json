@@ -6,9 +6,9 @@
   "private": true,
   "author": "Burak Donbay",
   "scripts": {
-    "start": "node ./bin/www",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "start": "node ./bin/www"
+    //"snyk-protect": "snyk protect",
+    //"prepublish": "npm run snyk-protect"
   },
     "repository": {
     "type": "git",
