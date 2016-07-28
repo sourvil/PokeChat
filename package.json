@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "PokeChat MEAN app",
   "main": "app.js",
-  "private": true,
+  "private": false,
   "author": "Burak Donbay",
   "scripts": {
     "start": "node ./bin/www"
