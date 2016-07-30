@@ -6,6 +6,8 @@ var should = chai.should();
 chai.use(chaiHttp);
 chai.use(require('chai-passport-strategy'));
 
+var envs = require('envs');
+const env = require('env2')('./config.env');
 
 describe('Pokes', function() {
   it('should list ALL pokes on /chat GET', function (done) {
@@ -20,13 +22,13 @@ describe('Pokes', function() {
   });
 
     it('should get a poke on /chat GET', function (done) {
-        var idChat = "579cce401b59a90065eb5b93";
+        var idChat = process.env.defaultChatId;
         chai.request(server)
             .get('/chat/' + idChat)
             .end(function(err,res){
                 res.should.have.status(200);
                 res.should.be.json;
-                res.body.message.should.equal('Test Message 1');
+                res.body.message.should.equal(process.env.defaultChatMessage);
                 done();
             });  
   });

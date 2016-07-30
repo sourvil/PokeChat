@@ -18,8 +18,11 @@ var chat = require('./routes/chat');
 var auth = require('./routes/auth')(passport);
 
 var mongoose = require('mongoose');
-//var mongoURI = "mongodb://localhost:27017/pokechat";
-var mongoURI = "mongodb://test:test@ds029665.mlab.com:29665/pokechat";
+var envs = require('envs');
+const env = require('env2')('./config.env');
+
+var mongoURI = process.env.mongoURI;
+
 var MongoDB = mongoose.connect(mongoURI).connection;
 MongoDB.on('error', function (err) { console.log(err.message); });
 MongoDB.once('open', function () {

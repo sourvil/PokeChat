@@ -25,6 +25,8 @@
     "chai-http": "^3.0.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
+    "env2": "^2.1.0",
+    "envs": "^0.1.6",
     "express": "4.14.0",
     "express-generator": "4.13.4",
     "express-session": "^1.14.0",
