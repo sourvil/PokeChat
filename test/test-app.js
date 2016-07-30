@@ -28,7 +28,8 @@ describe('Pokes', function() {
             .end(function(err,res){
                 res.should.have.status(200);
                 res.should.be.json;
-                console.log("process.env.defaultChatMessage" + process.env.defaultChatMessage);
+                console.log("process.env.defaultChatMessage: " + process.env.defaultChatMessage);
+                console.log("res.body.message: " + res.body.message);
                 res.body.message.should.equal(process.env.defaultChatMessage);
                 done();
             });  
