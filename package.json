@@ -8,7 +8,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "prepublish": "npm run snyk-protect",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
