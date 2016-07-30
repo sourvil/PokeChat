@@ -8,7 +8,7 @@ Simple Chat channel for Poke-Go lovers!
 
 [![Known Vulnerabilities](https://snyk.io/test/github/sourvil/pokechat/badge.svg)](https://snyk.io/test/github/sourvil/pokechat)
 
-[![npm](https://img.shields.io/npm/v/pokechat.svg)](https://www.npmjs.com/package/pokechat)
+[![npm](https://img.shields.io/npm/v/PokeChat.svg)](https://www.npmjs.com/package/PokeChat)
 
 Front-end   : AngularJS 1.5
 
