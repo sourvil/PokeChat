@@ -50,7 +50,7 @@ module.exports = function (passport) {
                     }
 
                     // // better to store here, in middleware rather than client page.
-                    var socket = io.connect(process.env.siteUrl, { reconnect: true });
+                    var socket = io.connect(process.env.siteUrl + ":" + process.env.PORT, { reconnect: true });
                     var data = username;
                     socket.emit('login', data);
 

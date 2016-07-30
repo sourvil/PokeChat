@@ -29,7 +29,7 @@ module.exports = function (passport) {
     });
 
     router.get('/socketurl', function (req, res) {
-        return res.json(process.env.siteUrl);
+        return res.json(process.env.siteUrl+ ":" + process.env.PORT);
     });
 
     return router;
