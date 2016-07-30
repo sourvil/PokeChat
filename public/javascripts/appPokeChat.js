@@ -120,9 +120,13 @@ app.factory('chatService', function ($resource) {
     return $resource('/chat');
 });
 
-app.factory('socket', ['$rootScope', function ($rootScope) {
-    //var socket = io.connect('http://localhost:3000', { reconnect: true });
-    var socket = io.connect('https://sourvil-pokechat.herokuapp.com', { reconnect: true });
+app.factory('socket', ['$rootScope' , '$http', function ($rootScope,$http) {
+    var socketUrl = "";
+    $http.get('auth/socketurl').then(function successCallback(response){
+        socketUrl = response.data;
+    });
+    console.log(socketUrl);
+    var socket = io.connect(socketUrl, { reconnect: true });
 
 
     return {

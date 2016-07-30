@@ -1,6 +1,8 @@
 ﻿var express = require('express');
 var router = express.Router();
 
+var envs = require('envs');
+const env = require('env2')('./config.env');
 
 module.exports = function (passport) {
     router.get('/success', function (req, res) {
@@ -24,6 +26,10 @@ module.exports = function (passport) {
     router.get('/signout', function (req, res) {
         req.logout();
         res.redirect('/');
+    });
+
+    router.get('/socketurl', function (req, res) {
+        return res.json(process.env.siteUrl);
     });
 
     return router;
