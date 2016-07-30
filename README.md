@@ -2,6 +2,8 @@
 
 Simple Chat channel for Poke-Go lovers!
 
+https://sourvil-pokechat.herokuapp.com/
+
 [![Build Status](https://travis-ci.org/sourvil/PokeChat.svg?branch=master)](https://travis-ci.org/sourvil/PokeChat)
 
 [![Coverage Status](https://coveralls.io/repos/github/sourvil/PokeChat/badge.svg?branch=master)](https://coveralls.io/github/sourvil/PokeChat?branch=master)

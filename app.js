@@ -91,7 +91,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 if(!module.parent) {
-http.listen(3000);
+http.listen(80);
 }
 //netstat -a -o
 //taskkill /F /PID ******
