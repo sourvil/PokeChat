@@ -31,7 +31,7 @@ describe('Pokes', function() {
             });  
   });
 
-    // TODO -- Authenticate, Authroize and after Post a Message
+    // TODO -- Mocha / Authenticate, Authroize and after Post a Message
     
     // before(function(done) {
     //   chai.passport.use(strategy)
