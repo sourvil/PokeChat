@@ -13,6 +13,7 @@ function isAuthenticated(req, res, next) {
     if (req.isAuthenticated())
         return next();
 
+    console.log('Not authenticated for this operation');
     return res.redirect('/');
 }
 
@@ -21,7 +22,7 @@ router.use('/', isAuthenticated);
 
 router.route('/')
     .post(function (req, res) {
-
+        console.log('chat message is being save');
         var chat = new Chat();
         chat.message = req.body.message;
         chat.createdBy = req.body.createdBy;
@@ -31,6 +32,7 @@ router.route('/')
                 console.log('post error: ' + err);
                 return res.send(500, err);
             }
+            console.log(req.body.message +  ' is saved');
             return res.json(chat);
         });
     })

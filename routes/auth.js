@@ -1,18 +1,9 @@
 ﻿var express = require('express');
 var router = express.Router();
 
-var io = require('socket.io-client');
-var usernames = [];
-
 
 module.exports = function (passport) {
     router.get('/success', function (req, res) {
-
-        // better to store here, in middleware rather than client page.
-        var socket = io.connect('http://localhost:3000', { reconnect: true });
-        var data = req.user.username;
-        socket.emit('login', data);
-
         res.send({ state: 'success', user: req.user ? req.user : null });
     });
 

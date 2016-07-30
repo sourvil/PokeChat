@@ -4,6 +4,7 @@ var User = mongoose.model('User');
 var localStrategy = require('passport-local').Strategy;
 var bCrypt = require('bcrypt-nodejs');
 
+var io = require('socket.io-client');
 
 module.exports = function (passport) {
 
@@ -28,7 +29,6 @@ module.exports = function (passport) {
         passReqToCallback: true
     },
         function (req, username, password, done) {
-
             User.findOne({ 'username': username },
                 function (err, user) {
                     if (err) {
@@ -45,7 +45,12 @@ module.exports = function (passport) {
                         return done(null, false);
                     }
 
-                    //console.log('login is successfull. Username: ' + user.username + '. Password: ' + user.password + '. ID:' + user._id);
+                    // // better to store here, in middleware rather than client page.
+                    var socket = io.connect('http://localhost:3000', { reconnect: true });
+                    var data = username;
+                    socket.emit('login', data);
+
+                    //console.log('login is successful. Username: ' + user.username + '. Password: ' + user.password + '. ID:' + user._id);
                     return done(null, user);
                 }
             );
@@ -77,7 +82,7 @@ module.exports = function (passport) {
                                 throw err;
                             }
 
-                            console.log(newUser.username + ' user is signed up!');
+                            //console.log(newUser.username + ' user is signed up!');
                             return done(null, newUser);
                         });
 
