@@ -18,14 +18,13 @@ var chat = require('./routes/chat');
 var auth = require('./routes/auth')(passport);
 
 var mongoose = require('mongoose');
-//mongoose.connect('mongodb://localhost:27017/pokechat');     //control
-var mongoURI = "mongodb://localhost:27017/pokechat";
+//var mongoURI = "mongodb://localhost:27017/pokechat";
+var mongoURI = "mongodb://test:test@ds029665.mlab.com:29665/pokechat";
 var MongoDB = mongoose.connect(mongoURI).connection;
 MongoDB.on('error', function (err) { console.log(err.message); });
 MongoDB.once('open', function () {
     console.log("mongodb connection open");
 });
-
 
 var app = express();
 
@@ -91,6 +90,8 @@ var io = require('socket.io')(http);
 if(!module.parent) {
 http.listen(3000);
 }
+//netstat -a -o
+//taskkill /F /PID ******
 
 var usernames = [];
 var socketUserArray = [];

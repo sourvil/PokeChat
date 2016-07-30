@@ -20,13 +20,13 @@ describe('Pokes', function() {
   });
 
     it('should get a poke on /chat GET', function (done) {
-        var idChat = "57949f6b430f05c03271dbbc";
+        var idChat = "579cce401b59a90065eb5b93";
         chai.request(server)
             .get('/chat/' + idChat)
             .end(function(err,res){
                 res.should.have.status(200);
                 res.should.be.json;
-                res.body.message.should.equal('Test Poke Message');
+                res.body.message.should.equal('Test Message 1');
                 done();
             });  
   });
