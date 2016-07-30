@@ -6,6 +6,10 @@ var bCrypt = require('bcrypt-nodejs');
 
 var io = require('socket.io-client');
 
+var envs = require('envs');
+const env = require('env2')('./config.env');
+
+
 module.exports = function (passport) {
 
     // Passport needs to be able to serialize and deserialize users to support persistent login sessions
@@ -46,7 +50,7 @@ module.exports = function (passport) {
                     }
 
                     // // better to store here, in middleware rather than client page.
-                    var socket = io.connect('http://localhost:3000', { reconnect: true });
+                    var socket = io.connect(process.env.siteUrl, { reconnect: true });
                     var data = username;
                     socket.emit('login', data);
 
