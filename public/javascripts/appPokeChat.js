@@ -40,11 +40,6 @@ app.config(function ($routeProvider) {
 app.controller('ctrlAuth', function ($scope, $http, $rootScope, $location, socket) {
     
     console.log('ctrlAuth');
-
-    $http.get('auth/socketurl').then(function successCallback(response){
-        $rootScope.socketUrl = response.data;
-        console.log("response.data:"+response.data);
-    });
     
     $scope.user = { username: '', password: '' };
     $scope.errorMessage = '';
@@ -131,6 +126,12 @@ app.factory('chatService', function ($resource) {
 });
 
 app.factory('socket', ['$rootScope' , '$http', function ($rootScope,$http) {
+    
+    
+    $http.get('auth/socketurl').then(function successCallback(response){
+        $rootScope.socketUrl = response.data;
+        console.log("response.data:"+response.data);
+    });
     
     console.log("socketUrl:" + $rootScope.socketUrl);
     var socket = io.connect($rootScope.socketUrl, { reconnect: true });
