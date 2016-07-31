@@ -139,6 +139,7 @@ app.factory('socket', ['$rootScope' , '$http', function ($rootScope,$http) {
 
     return {
         on: function (eventName, callback) {
+            console.log('socket.on:' + $rootScope.socketUrl);
             function wrapper() {
                 var args = arguments;
                 $rootScope.$apply(function () {

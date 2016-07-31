@@ -65,6 +65,10 @@ app.use(function (req, res, next) {
     next(err);
 });
 
+// app.get('/env_var.js', function(req, res){
+//     res.send(process.env.PORT);
+// });
+
 // error handlers
 
 // development error handler
