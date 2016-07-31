@@ -29,6 +29,7 @@ module.exports = function (passport) {
     });
 
     router.get('/socketurl', function (req, res) {
+        console.log("auth/socketurl" + process.env.siteUrl+ ":" + process.env.PORT);
         return res.json(process.env.siteUrl+ ":" + process.env.PORT);
     });
 
