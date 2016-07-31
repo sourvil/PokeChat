@@ -39,6 +39,8 @@ app.config(function ($routeProvider) {
 
 app.controller('ctrlAuth', function ($scope, $http, $rootScope, $location, socket) {
     
+    console.log('ctrlAuth');
+
     $http.get('auth/socketurl').then(function successCallback(response){
         $rootScope.socketUrl = response.data;
         console.log("response.data:"+response.data);
@@ -91,6 +93,8 @@ app.controller('ctrlAuth', function ($scope, $http, $rootScope, $location, socke
 });
 
 app.controller('ctrlPoke', function ($scope, chatService, $rootScope, socket) {
+
+    console.log('ctrlPoke');
     
     $rootScope.pokes = chatService.query();
 
@@ -128,7 +132,7 @@ app.factory('chatService', function ($resource) {
 
 app.factory('socket', ['$rootScope' , '$http', function ($rootScope,$http) {
     
-    console.log("socketUrl:" + socketUrl);
+    console.log("socketUrl:" + $rootScope.socketUrl);
     var socket = io.connect($rootScope.socketUrl, { reconnect: true });
 
 
