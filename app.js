@@ -96,6 +96,11 @@ app.use(function (err, req, res, next) {
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+if (app.get('env') !== 'development'){
+  io.set("transports", ["xhr-polling"]); 
+  io.set("polling duration", 10); 
+}
+
 if(!module.parent) {
     http.listen(process.env.PORT);
 }
