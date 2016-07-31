@@ -37,39 +37,13 @@ app.config(function ($routeProvider) {
         ;
 });
 
-app.controller('ctrlPoke', function ($scope, chatService, $rootScope, socket) {
-    
-    $rootScope.pokes = chatService.query();
-
-    $scope.poke = function () {
-        $scope.newPoke.createdAt = Date.now();
-        $scope.newPoke.createdBy = $rootScope.currentUserId;
-
-        chatService.save($scope.newPoke, function () {
-            console.log('poke is saved');
-            $rootScope.pokes = chatService.query();
-
-            socket.emit('messageToServer', $scope.newPoke);
-
-            $scope.newPoke = { createdBy: '', createdAt: '', message: '' };            
-        });        
-    };
-
-    socket.on('messageToClient', function (data) {
-        console.log('client:message: ' + data.message + ' from: ' + data.createdBy + ' at: ' + data.createdAt);
-        $rootScope.pokes = chatService.query();
-        console.log('$rootScope.pokes is loaded: ' + $rootScope.pokes);
-    });
-
-    socket.on('usernamesToClient', function (data) {
-        console.log("client:usernames: " + JSON.stringify(data));
-        $rootScope.activeUsers = data;
-    });
-    socket.emit('usernamesFromServer', '');
-});
-
 app.controller('ctrlAuth', function ($scope, $http, $rootScope, $location, socket) {
-
+    
+    $http.get('auth/socketurl').then(function successCallback(response){
+        $rootScope.socketUrl = response.data;
+        console.log("response.data:"+response.data);
+    });
+    
     $scope.user = { username: '', password: '' };
     $scope.errorMessage = '';
 
@@ -116,18 +90,46 @@ app.controller('ctrlAuth', function ($scope, $http, $rootScope, $location, socke
     };
 });
 
+app.controller('ctrlPoke', function ($scope, chatService, $rootScope, socket) {
+    
+    $rootScope.pokes = chatService.query();
+
+    $scope.poke = function () {
+        $scope.newPoke.createdAt = Date.now();
+        $scope.newPoke.createdBy = $rootScope.currentUserId;
+
+        chatService.save($scope.newPoke, function () {
+            console.log('poke is saved');
+            $rootScope.pokes = chatService.query();
+
+            socket.emit('messageToServer', $scope.newPoke);
+
+            $scope.newPoke = { createdBy: '', createdAt: '', message: '' };            
+        });        
+    };
+
+    socket.on('messageToClient', function (data) {
+        console.log('client:message: ' + data.message + ' from: ' + data.createdBy + ' at: ' + data.createdAt);
+        $rootScope.pokes = chatService.query();
+        console.log('$rootScope.pokes is loaded: ' + $rootScope.pokes);
+    });
+
+    socket.on('usernamesToClient', function (data) {
+        console.log("client:usernames: " + JSON.stringify(data));
+        $rootScope.activeUsers = data;
+    });
+    socket.emit('usernamesFromServer', '');
+});
+
+
 app.factory('chatService', function ($resource) {
     return $resource('/chat');
 });
 
 app.factory('socket', ['$rootScope' , '$http', function ($rootScope,$http) {
-    var socketUrl = "";
-    $http.get('auth/socketurl').then(function successCallback(response){
-        socketUrl = response.data;
-        console.log("response.data:"+response.data);
-    });
+    
     console.log("socketUrl:" + socketUrl);
-    var socket = io.connect(socketUrl, { reconnect: true });
+    var socket = io.connect($rootScope.socketUrl, { reconnect: true });
 
 
     return {

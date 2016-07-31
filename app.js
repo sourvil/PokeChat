@@ -93,7 +93,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 if(!module.parent) {
-http.listen(process.env.PORT);
+    http.listen(process.env.PORT);
 }
 //netstat -a -o
 //taskkill /F /PID ******
