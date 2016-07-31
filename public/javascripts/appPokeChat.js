@@ -125,7 +125,7 @@ app.factory('socket', ['$rootScope' , '$http', function ($rootScope,$http) {
     $http.get('auth/socketurl').then(function successCallback(response){
         socketUrl = response.data;
     });
-    socketUrl = "https://sourvil-pokechat.herokuapp.com:80";
+    socketUrl = "https://sourvil-pokechat.herokuapp.com:443";
     console.log("socketUrl:" + socketUrl);
     var socket = io.connect(socketUrl, { reconnect: true });
 
