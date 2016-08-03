@@ -5,6 +5,18 @@
   "main": "app.js",
   "private": false,
   "author": "sourvil",
+  "email": "burak.donbay@gmail.com",
+  "keywords": [
+    "türkçe",
+    "türk",
+    "turk",
+    "turkish",
+    "MEAN",
+    "mongoDB",
+    "ExpressJS",
+    "AngularJS",
+    "NodeJS"
+  ],
   "scripts": {
     "start": "node ./bin/www",
     "snyk-protect": "snyk protect",
