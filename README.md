@@ -12,7 +12,7 @@ https://sourvil-pokechat.herokuapp.com/
 
 [![npm](https://img.shields.io/npm/v/PokeChat.svg)](https://www.npmjs.com/package/PokeChat)
 
-[![Heroku](https://heroku-badge.herokuapp.com/?app=sourvil-pokechat)](https://sourvil-pokechat.heroku.com)
+[![Heroku](https://heroku-badge.herokuapp.com/?app=sourvil-pokechat)](https://sourvil-pokechat.herokuapp.com)
 
 Front-end   : AngularJS 1.5
 
