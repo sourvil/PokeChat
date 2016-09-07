@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml" ng-app="appPokeChat">
+
 <head>
     <meta charset="utf-8" />
     <title>PokeChat</title>
@@ -8,16 +9,33 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.js"></script>
 
+    <link rel="manifest" href="/manifest.json">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css">
 
     <link rel="stylesheet" href="stylesheets/style.css">
     <link rel="stylesheet" href="stylesheets/timeline.css">
+
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
+    <script>
+    var OneSignal = window.OneSignal || [];
+    OneSignal.push(["init", {
+      appId: "15017b02-ac0c-4f96-831b-94d4e5b4a8a7",
+      autoRegister: false,
+      notifyButton: {
+        enable: true /* Set to false to hide */
+      }
+    }]);
+  </script>
+
 </head>
+
 <body ng-controller="ctrlAuth">
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -47,17 +65,19 @@
                         </p>
                     </li>
                 </ul>
-            </div><!--/.nav-collapse -->
+            </div>
+            <!--/.nav-collapse -->
         </div>
     </nav>
     <div class="view-animate-container">
         <div ng-view class="view-animate"></div>
     </div>
-    
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.js"></script>
     <script src="javascripts/appPokeChat.js"></script>
 </body>
+
 </html>
