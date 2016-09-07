@@ -28,6 +28,21 @@
     }]);
   </script>
 
+  <script>
+    Userback = window.Userback || {};
+
+    (function(id) {
+        if (document.getElementById(id)) {return;}
+        var s = document.createElement('script');
+        s.id = id;
+        s.src = 'https://app.userback.io/widget.js';
+        var parent_node = document.head || document.body;
+        parent_node.appendChild(s);
+    })('userback-sdk');
+
+    Userback.access_token = '347|401|jWTcf8Gb7ZroCXNEAYwkK5Zdm2fr61kqYeCdmjptiQSVNFAnD6';
+</script>
+
 </head>
 
 <body ng-controller="ctrlAuth">
