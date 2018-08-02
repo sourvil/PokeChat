@@ -34,7 +34,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.15.1",
     "chai": "^3.5.0",
-    "chai-http": "^3.0.0",
+    "chai-http": "^4.0.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "env2": "^2.1.0",
