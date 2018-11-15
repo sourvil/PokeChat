@@ -45,7 +45,7 @@
     "istanbul": "^0.4.4",
     "mocha": "^2.5.3",
     "mongoose": "^4.5.5",
-    "morgan": "~1.7.0",
+    "morgan": "~1.9.1",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "pm2": "^1.1.3",
