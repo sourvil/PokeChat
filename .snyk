@@ -1,5 +1,7 @@
-version: v1.5.0
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.5
 ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
 patch:
   'npm:negotiator:20160616':
     - socket.io > engine.io > accepts > negotiator:
@@ -26,3 +28,8 @@ patch:
         patched: '2016-07-28T11:39:50.576Z'
     - socket.io > socket.io-client > engine.io-client > ws:
         patched: '2016-07-28T11:39:50.576Z'
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - snyk > proxy-agent > https-proxy-agent:
+        patched: '2019-10-17T07:37:36.455Z'
+    - snyk > proxy-agent > pac-proxy-agent > https-proxy-agent:
+        patched: '2019-10-17T07:37:36.455Z'
