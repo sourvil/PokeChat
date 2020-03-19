@@ -43,7 +43,7 @@
     "express-generator": "4.13.4",
     "express-session": "^1.14.0",
     "istanbul": "^0.4.4",
-    "mocha": "^2.5.3",
+    "mocha": "^7.1.1",
     "mongoose": "^4.5.5",
     "morgan": "~1.7.0",
     "passport": "^0.3.2",
@@ -58,7 +58,7 @@
     "chai": "^3.5.0",
     "coveralls": "^2.11.12",
     "istanbul": "^0.4.4",
-    "mocha": "^2.5.3",
+    "mocha": "^7.1.1",
     "mocha-lcov-reporter": "^1.2.0"
   }
 }
