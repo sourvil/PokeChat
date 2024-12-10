@@ -39,12 +39,12 @@
     "debug": "~2.2.0",
     "env2": "^2.1.0",
     "envs": "^0.1.6",
-    "express": "4.14.0",
+    "express": "4.21.2",
     "express-generator": "4.13.4",
     "express-session": "^1.14.0",
     "istanbul": "^0.4.4",
-    "mocha": "^2.5.3",
-    "mongoose": "^4.5.5",
+    "mocha": "^11.0.1",
+    "mongoose": "^8.8.3",
     "morgan": "~1.7.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
@@ -58,7 +58,7 @@
     "chai": "^3.5.0",
     "coveralls": "^2.11.12",
     "istanbul": "^0.4.4",
-    "mocha": "^2.5.3",
+    "mocha": "^11.0.1",
     "mocha-lcov-reporter": "^1.2.0"
   }
 }
